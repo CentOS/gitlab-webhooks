@@ -4,6 +4,16 @@ This repository contains the required resources do deploy the gitlab-webhooks ap
 
 All images are build on top of the `centos:latest` tag.
 
+## Project Info
+
+|                 | Project Info                                      |
+| --------------- | ------------------------------------------------- |
+| License:        | MIT                                               |
+| Build:          | Docker                                            |
+| Issue tracker:  | https://github.com/CentOS/gitlab-webhooks/issues  |
+| Mailing lists:  | [centos-devel](https://lists.centos.org/pipermail/centos-devel/) ([subscribe](https://lists.centos.org/mailman/listinfo/centos-devel)) |
+| IRC:            | [#centos-stream](https://webchat.freenode.net/?channels=centos-stream) channel in the [freenode](http://freenode.net/) network. |
+
 ## Structure
 
 * `deploy/openshift`: openshift yaml deployment files
