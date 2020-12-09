@@ -1,4 +1,4 @@
-# Kernel Webhooks
+# Gitlab Webhooks
 
 This repository contains the required resources do deploy the gitlab-webhooks app on openshift.
 
@@ -22,7 +22,7 @@ oc \
 create \
 secret \
 generic \
-centos-gitlab-certs \
+gitlab-webhook-fm-certs \
 --from-file=ca.pem=$HOME/.local/certs/fedora-messaging/gitlab/ca.pem \
 --from-file=cert.pem=$HOME/.local/certs/fedora-messaging/gitlab/cert.pem \
 --from-file=key.pem=$HOME/.local/certs/fedora-messaging/gitlab/key.pem
