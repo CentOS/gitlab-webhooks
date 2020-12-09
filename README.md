@@ -1,6 +1,6 @@
 # Kernel Webhooks
 
-This repository contains the required resources do deploy the kernel-webhooks app created by the CKI team on openshift.
+This repository contains the required resources do deploy the gitlab-webhooks app on openshift.
 
 All images are build on top of the `centos:latest` tag.
 
