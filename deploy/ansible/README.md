@@ -15,10 +15,3 @@ playbooks/install.yml
 ```
 
 All available variables are located at: `inventories/localhost.ini`.
-
-The only required var changes is around the fedora-messaging ca, cert and key files paths:
-
-* fedora_messaging_ca_path
-* fedora_messaging_cert_path
-* fedora_messaging_key_path
-
