@@ -92,7 +92,7 @@ keyfile = "/opt/gitlab-webhook/etc/certs/key.pem"
 
 ## Development
 
-Docker compose can be used to run an instance:
+Docker compose can be used for local development:
 
 ```
 docker-compose up
