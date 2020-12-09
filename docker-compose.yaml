@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  web:
+    image: quay.io/lrossett/gitlab-webhooks:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - FEDORA_MESSAGING_CONF=/opt/gitlab-webhook/etc/fedora-messaging/default.toml
+      - IS_PRODUCTION=False
+      - LOGGER_NAME=gunicorn.error
+      - WEB_WORKERS=5
+      - LOG_LEVEL=INFO
+      - GITLAB_TOKEN=foobar
+      - TOPIC_TEMPLATE=org.centos.prod.gitlab.{web_url.path}.{object_kind}

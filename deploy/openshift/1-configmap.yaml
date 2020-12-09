@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-webhook-fm-config
+data:
+  default.toml: |-
+    amqp_url = "amqps://gitlab-centos:@rabbitmq.fedoraproject.org/%2Fpubsub"
+
+    [client_properties]
+    app = "gitlab-centos"
+ 
+    [tls]
+    ca_cert = "/opt/gitlab-webhook/etc/certs/ca.pem"
+    certfile = "/opt/gitlab-webhook/etc/certs/cert.pem"
+    keyfile = "/opt/gitlab-webhook/etc/certs/key.pem"

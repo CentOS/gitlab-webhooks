@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-webhooks
+  labels:
+    app: gitlab-webhooks
+spec:
+  selector:
+    app: gitlab-webhooks
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 5000

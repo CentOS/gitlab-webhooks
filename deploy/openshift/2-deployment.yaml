@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-webhooks
+  labels:
+    app: gitlab-webhooks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-webhooks
+  template:
+    metadata:
+      labels:
+        app: gitlab-webhooks
+    spec:
+      containers:
+      - name: app
+        imagePullPolicy: Always
+        image: quay.io/lrossett/gitlab-webhooks:latest
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        env:
+          - name: FEDORA_MESSAGING_CONF
+            value: /opt/gitlab-webhook/etc/fedora-messaging/default.toml
+          - name: IS_PRODUCTION
+            value: 'False'
+          - name: LOGGER_NAME
+            value: gunicorn.error
+          - name: WEB_WORKERS
+            value: '5'
+          - name: LOG_LEVEL
+            value: INFO
+          - name: TOPIC_TEMPLATE
+            value: 'org.centos.prod.gitlab.{web_url.path}.{object_kind}'
+        envFrom:
+          - secretRef:
+              name: gitlab-webhook-token
+        volumeMounts:
+        - name: cert-volume
+          mountPath: /opt/gitlab-webhook/etc/certs
+          readOnly: true
+        - name: config-volume
+          mountPath: /opt/gitlab-webhook/etc/fedora-messaging
+          readOnly: true
+      volumes:
+      - name: cert-volume
+        secret:
+          secretName: gitlab-webhook-fm-certs
+      - name: config-volume
+        configMap:
+          name: gitlab-webhook-fm-config
+
