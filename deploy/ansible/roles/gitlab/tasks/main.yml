@@ -1,0 +1,22 @@
+- name: gitlab.tmpdir.create
+  tempfile:
+    state: directory
+  register: tmpdir_res
+
+- name: gitlab.tmpdir.set_fact
+  set_fact:
+    tmp_dir: "{{ tmpdir_res.path }}"
+
+- name: gitlab.k8s.secret.apply
+  k8s:
+    state: present
+    apply: true
+    wait: true
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: "{{ gitlab_token_secret_name }}"
+        namespace: "{{ gitlab_namespace }}"
+      data:
+        GITLAB_TOKEN: "{{ gitlab_token | b64encode }}"

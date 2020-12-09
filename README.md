@@ -17,6 +17,7 @@ All images are build on top of the `centos:latest` tag.
 ## Structure
 
 * `deploy/openshift`: openshift yaml deployment files
+* `deploy/ansible`: ansible playbooks for an automated installation
 * `images`: linux container images files
 * `images/gitlab-webhook`: webhook flask app source code
 * `samples`: sample files for reference

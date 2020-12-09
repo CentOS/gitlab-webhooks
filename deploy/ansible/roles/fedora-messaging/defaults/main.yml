@@ -1,0 +1,9 @@
+# fedora messaging
+fedora_messaging_namespace: gitlab
+fedora_messaging_configmap_name: gitlab-webhook-fm-config
+fedora_messaging_url: amqps://gitlab-centos:@rabbitmq.fedoraproject.org/%2Fpubsub
+fedora_messaging_app_name: gitlab-centos
+fedora_messaging_ca_path: /opt/gitlab-webhook/etc/certs/ca.pem
+fedora_messaging_cert_path: /opt/gitlab-webhook/etc/certs/cert.pem
+fedora_messaging_key_path: /opt/gitlab-webhook/etc/certs/key.pem
+fedora_messaging_secret_name: gitlab-webhook-fm-certs

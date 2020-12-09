@@ -1,0 +1,64 @@
+- name: webhook.tmpdir.create
+  tempfile:
+    state: directory
+  register: tmpdir_res
+
+- name: webhook.tmpdir.set_fact
+  set_fact:
+    tmp_dir: "{{ tmpdir_res.path }}"
+
+- name: webhook.k8s.template.deployment.create
+  template:
+    src: deployment.yaml.j2
+    dest: "{{ tmp_dir }}/deployment.yaml"
+
+- name: webhook.k8s.deployment.apply
+  k8s:
+    state: present
+    wait: true
+    apply: true
+    src: "{{ tmp_dir }}/deployment.yaml"
+
+- name: webhook.k8s.service.apply
+  k8s:
+    state: present
+    wait: true
+    apply: true
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: "{{ webhook_service_name }}"
+        namespace: "{{ webhook_namespace }}"
+        labels:
+          app: "{{ webhook_deployment_name }}"
+      spec:
+        selector:
+          app: "{{ webhook_deployment_name }}"
+        ports:
+          - protocol: TCP
+            port: "{{ webhook_service_port }}"
+            targetPort: 5000
+
+- name: webhook.k8s.route.apply
+  k8s:
+    state: present
+    wait: true
+    apply: true
+    definition:
+      apiVersion: route.openshift.io/v1
+      kind: Route
+      metadata:
+        name: "{{ webhook_route_name }}"
+        namespace: "{{ webhook_namespace }}"
+      spec:
+        to:
+          kind: Service
+          name: "{{ webhook_service_name }}"
+          weight: 100
+        port:
+          targetPort: 5000
+        tls:
+          termination: edge
+          insecureEdgeTerminationPolicy: Redirect
+        wildcardPolicy: None

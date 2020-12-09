@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ fedora_messaging_configmap_name }}
+  namespace: {{ fedora_messaging_namespace }}
+data:
+  default.toml: |-
+    amqp_url = "{{ fedora_messaging_url }}"
+
+    [client_properties]
+    app = "{{ fedora_messaging_app_name }}"
+ 
+    [tls]
+    ca_cert = "/opt/gitlab-webhook/etc/certs/ca.pem"
+    certfile = "/opt/gitlab-webhook/etc/certs/cert.pem"
+    keyfile = "/opt/gitlab-webhook/etc/certs/key.pem"
