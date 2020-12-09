@@ -1,0 +1,10 @@
+- name: openshift.k8s.namespace.apply
+  k8s:
+    state: present
+    wait: true
+    apply: true
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ openshift_namespace }}"

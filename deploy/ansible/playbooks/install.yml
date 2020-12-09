@@ -1,0 +1,11 @@
+- hosts: local
+  connection: local
+  tasks:
+    - include_role:
+        name: openshift
+    - include_role:
+        name: fedora-messaging
+    - include_role:
+        name: gitlab
+    - include_role:
+        name: webhook

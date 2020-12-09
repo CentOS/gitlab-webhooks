@@ -1,0 +1,3 @@
+gitlab_namespace: gitlab
+gitlab_token_secret_name: gitlab-webhook-token
+gitlab_token: foobar

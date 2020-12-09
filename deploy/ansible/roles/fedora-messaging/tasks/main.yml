@@ -1,0 +1,34 @@
+- name: fedora-messaging.tmpdir.create
+  tempfile:
+    state: directory
+  register: tmpdir_res
+
+- name: fedora-messaging.tmpdir.set_fact
+  set_fact:
+    tmp_dir: "{{ tmpdir_res.path }}"
+
+- name: fedora-messaging.template.configmap.create
+  template:
+    src: configmap.yaml.j2
+    dest: "{{ tmp_dir }}/configmap.yaml"
+
+- name: fedora-messaging.k8s.configmap.apply
+  k8s:
+    state: present
+    wait: true
+    src: "{{ tmp_dir }}/configmap.yaml"
+
+- name: fedora-messaging.k8s.secret.apply
+  k8s:
+    state: present
+    wait: true
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: "{{ fedora_messaging_secret_name }}"
+        namespace: "{{ fedora_messaging_namespace }}"
+      data:
+        ca.pem: "{{ lookup('file', fedora_messaging_ca_path) | b64encode }}"
+        cert.pem: "{{ ('\n' + lookup('file', fedora_messaging_cert_path)) | b64encode }}"
+        key.pem: "{{ lookup('file', fedora_messaging_key_path) | b64encode }}"

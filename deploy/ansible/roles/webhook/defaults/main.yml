@@ -1,0 +1,16 @@
+webhook_namespace: gitlab
+webhook_deployment_name: gitlab-webhooks
+webhook_replicas: 1
+webhook_image_pull_policy: Always
+webhook_image_name: quay.io/centos/gitlab-webhooks:latest
+webhook_is_production: False
+webhook_logger_name: gunicorn.error
+webhook_workers: 5
+webhook_log_level: INFO
+webhook_topic_template: org.centos.prod.gitlab.{web_url.path}.{object_kind}
+webhook_gitlab_secret_name: gitlab-webhook-token
+webhook_fm_secret_name: gitlab-webhook-fm-certs
+webhook_fm_configmap_name: gitlab-webhook-fm-config
+webhook_service_name: "{{ webhook_deployment_name }}"
+webhook_service_port: 8080
+webhook_route_name: "{{ webhook_deployment_name }}"
