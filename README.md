@@ -12,7 +12,7 @@ All images are build on top of the `centos:latest` tag.
 | Build:          | Docker                                            |
 | Issue tracker:  | https://github.com/CentOS/gitlab-webhooks/issues  |
 | Mailing lists:  | [centos-devel](https://lists.centos.org/pipermail/centos-devel/) ([subscribe](https://lists.centos.org/mailman/listinfo/centos-devel)) |
-| IRC:            | [#centos-stream](https://webchat.freenode.net/?channels=centos-stream) channel in the [freenode](http://freenode.net/) network. |
+| IRC:            | [#centos-stream](https://web.libera.chat/?channels=centos-stream) channel in the [libera](https://libera.chat/) network. |
 
 ## Structure
 
